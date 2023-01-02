@@ -1,0 +1,133 @@
+﻿<!--Copyright (c) Raphael Borrelli (@Rafbor)
+    Ce fichier fait partie de RafCalc.
+
+    RafCalc est un logiciel libre: vous pouvez le redistribuer ou le modifier
+    suivant les termes de la GNU General Public License telle que publiée par
+    la Free Software Foundation, soit la version 3 de la licence, soit
+    (à votre gré) toute version ultérieure.
+
+    RafCalc est distribué dans l'espoir qu'il sera utile,
+    mais SANS AUCUNE GARANTIE; sans même la garantie tacite de
+    QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la
+    GNU General Public License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License
+    en même temps que RafCalc. Si ce n'est pas le cas, consultez <https://www.gnu.org/licenses>.
+
+    -----------------------------------------------------------------
+
+    This file is part of RafCalc.
+
+    RafCalc is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    RafCalc is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with RafCalc.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+@page "/ConseilMaturation"
+@using System;
+@using System.ComponentModel.DataAnnotations;
+@inject Microsoft.Extensions.Localization.IStringLocalizer<ConseilMaturation> Loc
+
+<EditForm Model="@conseilMatur">
+    <DataAnnotationsValidator />
+
+<p>
+    <label for="WFarina">@Loc["ForceFarine"]</label><br>
+    <InputNumber @bind-Value="conseilMatur.WFarina" id="WFarina" style="width:150px"/>
+    <ValidationMessage For="@(() => conseilMatur.WFarina)"/>
+</p>
+<p>
+    <label for="Proteine">@Loc["ProteinesFarine"]</label><br>
+    <InputNumber @bind-Value="conseilMatur.Proteine" id="Proteine" style="width:150px"/>
+    <ValidationMessage For="@(() => conseilMatur.Proteine)"/>
+</p>
+<br>
+<p>
+    <label><b>@Loc["HeuresConseillees"]</b></label><br>
+    <b>@conseilMatur.GetOreConsigliate()</b>
+</p>
+
+<!-- submit pour forcer la validation des champs et supprimer les messages d'erreurs inutiles -->
+<button type="button submit" class="btn btn-primary">Validation</button>
+
+</EditForm>
+
+@code
+{
+    private ConseilMatur conseilMatur = new ConseilMatur();
+
+    public class ConseilMatur
+    {
+        private int nWFarina = 0;
+        [Range(170, 450, ErrorMessageResourceName = "FFValoreNonValido", ErrorMessageResourceType = typeof(ConseilStr))]
+        public int WFarina
+        {
+            get { return nWFarina; }
+            set { nWFarina = value; UpdateProteine(); }
+        }
+
+        private double dblProteine = 0;
+        [Range(10.7, 15.9, ErrorMessageResourceName = "PValoreNonValido", ErrorMessageResourceType = typeof(ConseilStr))]
+        public double Proteine
+        {
+            get { return dblProteine; }
+            set { dblProteine = value; UpdateWFarina(); }
+        }
+
+        // Conversion WFarine => Proteine.
+        public void UpdateProteine()
+        {
+            if (nWFarina < 170 || nWFarina > 450)
+            {
+                dblProteine = 0;
+                return;
+            }
+            dblProteine = Math.Round((nWFarina + 414.9) / 54.5, 1);
+        }
+
+        // Conversion Proteine => WFarine.
+        public void UpdateWFarina()
+        {
+            if (dblProteine < 10.7 || dblProteine > 15.9)
+            {
+                nWFarina = 0;
+                return;
+            }
+            nWFarina = (int)(Math.Round(54.5 * dblProteine - 414.9));
+			if (nWFarina < 170)
+				nWFarina = 170;
+			if (nWFarina > 450)
+				nWFarina = 450;
+        }
+
+        // Retourne une chaine contenant les heures de maturation conseillées de la farine.
+        public string GetOreConsigliate()
+        {
+            double dblOre;
+            string str;
+            
+            if (nWFarina == 0)
+                return "0";
+
+            dblOre = Math.Round(0.356777952493277 * Math.Exp(0.0127312106416944 * nWFarina));
+            
+            if (dblOre < 3)
+                dblOre = 3;
+            if (dblOre > 96)
+                dblOre = 96;
+            
+            str = string.Format("{0} - {1} h", dblOre, dblOre + 4);
+            return str;
+        }
+    }
+    
+}

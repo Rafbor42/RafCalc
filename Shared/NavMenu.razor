@@ -1,0 +1,74 @@
+﻿<!--Copyright (c) Raphael Borrelli (@Rafbor)
+    Ce fichier fait partie de RafCalc.
+
+    RafCalc est un logiciel libre: vous pouvez le redistribuer ou le modifier
+    suivant les termes de la GNU General Public License telle que publiée par
+    la Free Software Foundation, soit la version 3 de la licence, soit
+    (à votre gré) toute version ultérieure.
+
+    RafCalc est distribué dans l'espoir qu'il sera utile,
+    mais SANS AUCUNE GARANTIE; sans même la garantie tacite de
+    QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la
+    GNU General Public License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License
+    en même temps que RafCalc. Si ce n'est pas le cas, consultez <https://www.gnu.org/licenses>.
+
+    -----------------------------------------------------------------
+
+    This file is part of RafCalc.
+
+    RafCalc is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    RafCalc is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with RafCalc.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+@inject Microsoft.Extensions.Localization.IStringLocalizer<App> LocApp
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">
+                <img style="margin-top:-3px; height:32px" src="images/pizza.svg"> RafCalc</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> @LocApp["Calculateur"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="ConseilMaturation">
+                <span class="oi oi-plus" aria-hidden="true"></span> @LocApp["ConseilMaturation"]
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="APropos">
+                <span class="oi oi-plus" aria-hidden="true"></span> @LocApp["APropos"]
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

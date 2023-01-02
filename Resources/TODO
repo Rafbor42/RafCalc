@@ -1,0 +1,13 @@
+Fichiers fichiers *.Designer.cs
+-------------------------------
+Dans VSCode sous Linux, impossible de générer les fichiers .Designer.cs malgré le test de plusieurs outils de génération comme ResxToCs.
+=> Utilisation de SharpDevelop sous Win7 pour générer les fichiers, avec adaptation du namespace (il faut supprimer ".Resources" du namespace).
+
+Gestion des cookies
+-------------------
+D'après la CNIL https://www.cnil.fr/fr/cookies-et-traceurs-comment-mettre-mon-site-web-en-conformite les traceurs de personnalisation de l'interface utilisateur (par exemple, pour le choix de la langue) sont exemptés de consentement.
+On peut cependant informer les utilisateurs de leur utilisation et leur rappeler que des réglages du navigateur peuvent leur permettre de les bloquer.
+Exemple de bandeau à intégrer:
+En continuant votre navigation sur ce site, vous acceptez l'utilisation des cookies afin d'assurer le stockage du choix utilissateur concernant la langue utilisée.
+Vous pouvez autoriser, bloquer ou supprimer les cookies installés sur votre poste en paramétrant les options de votre navigateur.
+

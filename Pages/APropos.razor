@@ -1,0 +1,87 @@
+<!--Copyright (c) Raphael Borrelli (@Rafbor)
+    Ce fichier fait partie de RafCalc.
+
+    RafCalc est un logiciel libre: vous pouvez le redistribuer ou le modifier
+    suivant les termes de la GNU General Public License telle que publiée par
+    la Free Software Foundation, soit la version 3 de la licence, soit
+    (à votre gré) toute version ultérieure.
+
+    RafCalc est distribué dans l'espoir qu'il sera utile,
+    mais SANS AUCUNE GARANTIE; sans même la garantie tacite de
+    QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la
+    GNU General Public License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License
+    en même temps que RafCalc. Si ce n'est pas le cas, consultez <https://www.gnu.org/licenses>.
+
+    -----------------------------------------------------------------
+
+    This file is part of RafCalc.
+
+    RafCalc is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    RafCalc is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with RafCalc.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+@page "/APropos"
+
+<h2>RafCalc Web
+    @System.Reflection.Assembly.GetExecutingAssembly().GetName().Version
+</h2>
+<p>
+    <b>Calculateur d'empâtement pour pizza.</b><br>
+    Développée par Rafbor en Microsoft Blazor WebAssembly avec VSCode.<br><br>
+    Descriptif sur le forum français <a href="https://pizzanapo.fr/topic/1432-rafcalc-version-web">PizzaNapo.fr</a><br>
+    RafCalc Web est un portage de l'application RafCalc décrite <a href="https://pizzanapo.fr/index.php?/topic/3-topic-3/">ici (version FR)</a> et <a href="http://www.laverace.info/forum/viewtopic.php?f=156&t=4011">ici (version IT)</a>.<br>
+    Merci à:
+    <ul>
+    <li>DaiConan et Japi pour les formules de calcul de la levure.</li>
+    <li>Japi pour les formules de calcul des heures de maturation, de la force de la farine, et la conversion protéine / force.</li>
+    <li>Pere153 pour le calcul de la dureté de l'eau.</li>
+    <li>Juju pour les calculs de la Biga et du Poolish.</li>
+    <li>Jace112 pour la magnifique icône.</li>
+    <li>tous les membres de <a href="http://www.laverace.info/forum/">La Verace</a> et <a href="https://pizzanapo.fr">PizzaNapo</a></li>
+    </ul>
+</p>
+<p>
+    Ce programme est fourni sans aucune garantie.<br>
+    Pour plus de détails, visitez <a href="https://www.gnu.org/licenses">Licence publique générale GNU, version 3 ou ultérieure.</a></p>
+<p>
+    <b>Ressources utilisées:</b><br>
+    <a href="https://getbootstrap.com/">Bootstrap</a><br>
+    <a href="https://useiconic.com/open">Open Iconic</a><br>
+    <a href="https://tobiasahlin.com/spinkit/">SpinKit loading page</a> de Tobias Ahlin.<br>
+    <a href="https://github.com/IvanJosipovic/BlazorFileSaver">BlazorFileSaver</a> de Ivan Josipovic.<br>
+    <a href="https://github.com/SteveSandersonMS/BlazorOnGitHubPages">BlazorOnGithubPages</a> de Steve Anderson
+</p>
+<p>
+    <b>Historique</b><br>
+    <ul>
+    <li>0.9: mise à jour avec BlazorWasm 3.2.0-preview3.</li>
+    <li>0.9.0411: amélioration de l'interface.</li>
+    <li>0.9.0413: poids de la levure intégré dans le total.</li>
+    <li>0.9.0417: ajout température Autolyse-Biga-Poolish et durée conseillée pour Biga (basé sur une interpolation linéaire des résultats de MasterBiga). Ajout scroll vers bas de page après calcul.</li>
+    <li>0.9.0420: ajout gestion de 3 additifs.</li>
+    <li>0.9.0427: ajout icône. Bugfix sur lecture valeur décimale des 3 additifs.</li>
+    <li>0.9.0429: ajout favicon et sauvegarde de la recette.</li>
+    <li>0.9.0502: bugfixes et amélioration du calcul Biga. Ajout précalcul Autolyse, Biga et Poolish.</li>
+    <li>0.9.0503: améliorations mineures. Nouvelle icône créée par Jace112.</li>
+    <li>0.9.0508: ajout choix méthode Autolyse. Ajout sauvegarde du choix de calcul levure (eau ou farine).</li>
+    <li>1.0.0515: mise à jour avec BlazorWasm 3.2.0.rc1. Bugfix affichage label durée Poolish.</li>
+    <li>1.0.0518.1: bugfix sur calculs. Augmentation du % d'additif autorisé.</li>
+    <li>1.0.0520: mise à jour avec BlazorWasm 3.2.0.</li>
+    <li>1.1.0210: mise à jour avec DotNet 5.0. Utilisation du composant InputFile de DotNet 5.0 en remplacement du composant BlazorInputFile de Steve Anderson. Prise en charge de la compression Brotli. Localisation en italien.</li>
+    <li>1.1.0222: bugfix avec le CurrentCulture à l'enregistrement des fichiers, fonctionnement différent en .Net5</li>
+    <li>1.1.0412: mise à jour avec DotNet 5.0.5. Bugfix sur affichage du favicon.</li>
+    <li>1.2.0102: mise à jour vers .NET6</li>
+    </ul>
+</p>

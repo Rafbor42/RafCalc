@@ -1,0 +1,1473 @@
+﻿<!--Copyright (c) Raphael Borrelli (@Rafbor)
+    Ce fichier fait partie de RafCalc.
+
+    RafCalc est un logiciel libre: vous pouvez le redistribuer ou le modifier
+    suivant les termes de la GNU General Public License telle que publiée par
+    la Free Software Foundation, soit la version 3 de la licence, soit
+    (à votre gré) toute version ultérieure.
+
+    RafCalc est distribué dans l'espoir qu'il sera utile,
+    mais SANS AUCUNE GARANTIE; sans même la garantie tacite de
+    QUALITÉ MARCHANDE ou d'ADÉQUATION à UN BUT PARTICULIER. Consultez la
+    GNU General Public License pour plus de détails.
+
+    Vous devez avoir reçu une copie de la GNU General Public License
+    en même temps que RafCalc. Si ce n'est pas le cas, consultez <https://www.gnu.org/licenses>.
+
+    -----------------------------------------------------------------
+
+    This file is part of RafCalc.
+
+    RafCalc is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    RafCalc is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with RafCalc.  If not, see <https://www.gnu.org/licenses/>.
+-->
+
+@page "/"
+@using System;
+@using System.Data;
+@using System.ComponentModel.DataAnnotations;
+@using System.Threading;
+@using System.Globalization;
+@using System.IO;
+@using System.Xml;
+@using System.Text;
+@inject IJSRuntime JSRuntime
+@inject IBlazorFileSaver FileSaver
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Index> Loc
+
+<!-- Initialisations -->
+@Init()
+<table class="table-sm">
+<tbody>
+<tr>
+    <td style="width:160px">
+    <button id="top" class="btn btn-primary btn-sm" @onclick="Reset"><span class="oi oi-loop-square"></span> Reset</button>
+    </td>
+    <td><CultureSelector/></td>
+    <br>
+</tr>
+</tbody>
+</table>
+<p>@Loc["TestoInit"]</p>
+
+<EditForm Model="@calc" OnValidSubmit="ValidSubmit">
+    <DataAnnotationsValidator />
+<div class="row">
+    <div class="col-sm-12 font-weight-bold bg-secondary text-white">@Loc["Quantità"]</div>
+</div>
+<div class="panel panel-primary" >
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="NumeroPanielli1">@Loc["NumeroPanielli"]</label><br>
+        <InputNumber @bind-Value="calc.NumeroPanielli1" id="NumeroPanielli1" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.NumeroPanielli1)"/>
+    </td>
+    <td>
+        <label for="PesoPaniello1">@Loc["PesoPanielli"]</label><br>
+        <InputNumber @bind-Value="calc.PesoPaniello1" id="PesoPaniello1" style="width:118px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.PesoPaniello1)"/>
+        <button type="button" class="btn btn-secondary btn-sm"
+            style="@(CollapsedTeglia1 ? "" : "padding-left: 4px; padding-right: 10px" )"
+            @onclick="e => CollapsedTeglia1 = !CollapsedTeglia1">
+            @if ( CollapsedTeglia1 == true)
+            {
+                <span class="oi oi-caret-right"></span>
+            }
+            else
+            {
+                <span class="oi oi-caret-bottom" style="width: 8px"></span>
+            }
+        </button>
+        <div class="panel panel-primary @(CollapsedTeglia1 ? "collapse" : "" ) ">
+            <fieldset>
+                <b><legend>@Loc["PlaqueTeglia"]</legend></b>
+                <label for="TLunghezza1">@Loc["TLunghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLunghezza1" id="TLunghezza1" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLunghezza1)"/><br>
+                <label for="TLarghezza1">@Loc["TLarghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLarghezza1" id="TLarghezza1" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLarghezza1)"/><br>
+                <label for="TMajorPc1">@Loc["TMajorPc"]</label><br>
+                <InputNumber @bind-Value="calc.TMajorPc1" id="TMajorPc1" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TMajorPc1)"/><br>
+            </fieldset>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td>
+        <InputNumber @bind-Value="calc.NumeroPanielli2" id="NumeroPanielli2" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.NumeroPanielli2)"/>
+    </td>
+    <td>
+        <InputNumber @bind-Value="calc.PesoPaniello2" id="PesoPaniello2" style="width:118px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.PesoPaniello2)"/>
+        <button type="button" class="btn btn-secondary btn-sm"
+            style="@(CollapsedTeglia2 ? "" : "padding-left: 4px; padding-right: 10px" )"
+            @onclick="e => CollapsedTeglia2 = !CollapsedTeglia2">
+            @if ( CollapsedTeglia2 == true)
+            {
+                <span class="oi oi-caret-right"></span>
+            }
+            else
+            {
+                <span class="oi oi-caret-bottom" style="width: 8px"></span>
+            }
+        </button>
+        <div class="panel panel-primary @(CollapsedTeglia2 ? "collapse" : "" ) ">
+            <fieldset>
+                <b><legend>@Loc["PlaqueTeglia"]</legend></b>
+                <label for="TLunghezza2">@Loc["TLunghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLunghezza2" id="TLunghezza2" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLunghezza2)"/><br>
+                <label for="TLarghezza2">@Loc["TLarghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLarghezza2" id="TLarghezza2" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLarghezza2)"/><br>
+                <label for="TMajorPc2">@Loc["TMajorPc"]</label><br>
+                <InputNumber @bind-Value="calc.TMajorPc2" id="TMajorPc2" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TMajorPc2)"/><br>
+            </fieldset>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td>
+        <InputNumber @bind-Value="calc.NumeroPanielli3" id="NumeroPanielli3" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.NumeroPanielli3)"/>
+    </td>
+    <td>
+        <InputNumber @bind-Value="calc.PesoPaniello3" id="PesoPaniello3" style="width:118px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.PesoPaniello3)"/>
+        <button type="button" class="btn btn-secondary btn-sm"
+            style="@(CollapsedTeglia3 ? "" : "padding-left: 4px; padding-right: 10px" )"
+            @onclick="e => CollapsedTeglia3 = !CollapsedTeglia3">
+            @if ( CollapsedTeglia3 == true)
+            {
+                <span class="oi oi-caret-right"></span>
+            }
+            else
+            {
+                <span class="oi oi-caret-bottom" style="width: 8px"></span>
+            }
+        </button>
+        <div class="panel panel-primary @(CollapsedTeglia3 ? "collapse" : "" ) ">
+            <fieldset>
+                <b><legend>@Loc["PlaqueTeglia"]</legend></b>
+                <label for="TLunghezza3">@Loc["TLunghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLunghezza3" id="TLunghezza3" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLunghezza3)"/><br>
+                <label for="TLarghezza3">@Loc["TLarghezza"]</label><br>
+                <InputNumber @bind-Value="calc.TLarghezza3" id="TLarghezza3" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TLarghezza3)"/><br>
+                <label for="TMajorPc3">@Loc["TMajorPc"]</label><br>
+                <InputNumber @bind-Value="calc.TMajorPc3" id="TMajorPc3" style="width:118px" disabled=@IsQuantitesChoix2()/>
+                <ValidationMessage For="@(() => calc.TMajorPc3)"/><br>
+            </fieldset>
+        </div>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Idro">@Loc["Idro"]</label><br>
+        <InputNumber @bind-Value="calc.Idro" id="Idro" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.Idro)"/>
+    </td>
+    <td>
+        <label for="SaleLitro">@Loc["SaleLitro"]</label><br>
+        <InputNumber @bind-Value="calc.SaleLitro" id="SaleLitro" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.SaleLitro)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="GrassiLitro">@Loc["GrassiLitro"]</label><br>
+        <InputNumber @bind-Value="calc.GrassiLitro" id="GrassiLitro" style="width:150px" disabled=@IsQuantitesChoix2()/>
+        <ValidationMessage For="@(() => calc.GrassiLitro)"/>
+    </td>
+</tr>
+</tbody>
+</table>
+<br>
+<div class="custom-control custom-checkbox">
+    <input type="checkbox" class="custom-control-input" id="QuantitesChoix2" @onchange="OnChangeQuantitesChoix2" checked="@IsQuantitesChoix2()">
+    <label class="custom-control-label" for="QuantitesChoix2">@Loc["QuantitesChoix2"]</label>
+</div>
+<button type="button" class="btn btn-primary btn-sm" @onclick="e => SetPourcentagesQtes()" disabled=@IsQuantitesChoix1()>
+    <span class="oi oi-arrow-thick-bottom"></span> @Loc["PourcentagesQtes"]</button>
+@if (MsgPourcentages != string.Empty)
+{
+    // erreurs non gérées par la validation automatique
+    <p style="color:#FF0000">@MsgPourcentages</p>
+}
+
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="Farina">@Loc["Farina"]</label><br>
+        <InputNumber @bind-Value="calc.Farina" id="Farina" style="width:150px" disabled=@IsQuantitesChoix1()/>
+        <ValidationMessage For="@(() => calc.Farina)"/>
+    </td>
+    <td>
+        <label for="Acqua">@Loc["Acqua"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua" id="Acqua" style="width:150px" disabled=@IsQuantitesChoix1()/>
+        <ValidationMessage For="@(() => calc.Acqua)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Sale">@Loc["Sale"]</label><br>
+        <InputNumber @bind-Value="calc.Sale" id="Sale" style="width:150px" disabled=@IsQuantitesChoix1()/>
+        <ValidationMessage For="@(() => calc.Sale)"/>
+    </td>
+    <td>
+        <label for="Grassi">@Loc["Grassi"]</label><br>
+        <InputNumber @bind-Value="calc.Grassi" id="Grassi" style="width:150px" disabled=@IsQuantitesChoix1()/>
+        <ValidationMessage For="@(() => calc.Grassi)"/>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+
+
+
+<div class="row">
+    <div class="col-sm-12 font-weight-bold bg-secondary text-white">@Loc["Tempistiche"]</div>
+</div>
+<div class="panel panel-primary" >
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="Impastamento">@Loc["Impastamento"]</label><br>
+        <InputNumber @bind-Value="calc.Impastamento" id="Impastamento" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Impastamento)"/>
+    </td>
+    <td>
+        <label for="PuntataOre">@Loc["PuntataOre"]</label><br>
+        <InputNumber @bind-Value="calc.PuntataOre" id="PuntataOre" style="width:150px" step="0.5"/>
+        <ValidationMessage For="@(() => calc.PuntataOre)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="ApprettoOre">@Loc["ApprettoOre"]</label><br>
+        <InputNumber @bind-Value="calc.ApprettoOre" id="ApprettoOre" style="width:150px" step="0.5"/>
+        <ValidationMessage For="@(() => calc.ApprettoOre)"/>
+    </td>
+    <td>
+        <label for="FrigoOre">@Loc["FrigoOre"]</label><br>
+        <InputNumber @bind-Value="calc.FrigoOre" id="FrigoOre" style="width:150px" step="0.5"/>
+        <ValidationMessage For="@(() => calc.FrigoOre)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="PuntataTemp">@Loc["PuntataTemp"]</label><br>
+        <InputNumber @bind-Value="calc.PuntataTemp" id="PuntataTemp" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.PuntataTemp)"/>
+    </td>
+    <td>
+        <label for="ApprettoTemp">@Loc["ApprettoTemp"]</label><br>
+        <InputNumber @bind-Value="calc.ApprettoTemp" id="ApprettoTemp" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.ApprettoTemp)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="CotturaDataOra">@Loc["CotturaDataOra"]</label><br>
+        <InputDate @bind-Value="calc.CotturaDataOra" id="CotturaDataOra" style="width:150px"/>
+    </td>
+    <td>
+        <label>@Loc["CotturaOra"]</label><br>
+        <input id="txtTime" type="time" required @bind="calc.CotturaOra" style="width:150px"/>
+    </td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedPhasesTAFrigo = !CollapsedPhasesTAFrigo">
+    @if ( CollapsedPhasesTAFrigo == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["FasiTA-Frigo"]
+</button>
+<div class="panel panel-primary @(CollapsedPhasesTAFrigo ? "collapse" : "" ) ">
+<fieldset>
+    <b><legend>@Loc["FasiPuntata"]</legend></b>
+    <table class="table-sm">
+    <tbody>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbPointagePhases1 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.PointagePhase1Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbPointagePhases2 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.PointagePhase2Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbPointagePhases3 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.PointagePhase3Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="TotalPointage">@Loc["TotalPointage"]</label><br>
+            @if ((calc.PointagePhase1Ore + calc.PointagePhase2Ore + calc.PointagePhase3Ore != 0)
+                && calc.GetTotalPointage() != calc.PuntataOre)
+            {
+                <input type="number" value=@calc.GetTotalPointage() id="TotalPointage" disabled="true" style="color:#FF0000; width:145px"/>
+            }
+            else
+            {
+                <input type="number" value=@calc.GetTotalPointage() id="TotalPointage" disabled="true" style="width:145px"/>
+            }
+        </td>
+        <td>
+            <label for="TotalPointageFrigo">@Loc["TotalPointageFrigo"]</label><br>
+            <input type="number" value=@calc.GetTotalPointageFrigo() id="TotalPointageFrigo" disabled="true" style="width:145px"/>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</fieldset>
+<fieldset>
+    <b><legend>@Loc["FasiAppretto"]</legend></b>
+    <table class="table-sm">
+    <tbody>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbAppretPhases1 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.AppretPhase1Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbAppretPhases2 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.AppretPhase2Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <select @onchange=OnChangeCbAppretPhases3 style="width:145px; padding:4px">
+            @foreach (var phase in Phases)
+            {
+                <option value=@phase>@phase</option>
+            }
+            </select>
+        </td>
+        <td>
+            <InputNumber @bind-Value="calc.AppretPhase3Ore" style="width:145px" step="0.5"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="TotalAppret">@Loc["TotalAppret"]</label><br>
+            @if ((calc.AppretPhase1Ore + calc.AppretPhase2Ore + calc.AppretPhase3Ore != 0)
+                && calc.GetTotalAppret() != calc.ApprettoOre)
+            {
+                <input type="number" value=@calc.GetTotalAppret() id="TotalAppret" disabled="true" style="color:#FF0000; width:145px"/>
+            }
+            else
+            {
+                <input type="number" value=@calc.GetTotalAppret() id="TotalAppret" disabled="true" style="width:145px"/>
+            }
+        </td>
+        <td>
+            <label for="TotalAppretFrigo">@Loc["TotalAppretFrigo"]</label><br>
+            <input type="number" value=@calc.GetTotalAppretFrigo() id="TotalAppretFrigo" disabled="true" style="width:145px"/>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</fieldset>
+<p>
+    <button type="button" class="btn btn-primary btn-sm" @onclick="e => calc.InitTblTempistiche()">
+        <span class="oi oi-loop-square"></span> @Loc["ResetFasi"]</button>
+</p>
+</div>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedMixFarines = !CollapsedMixFarines">
+    @if ( CollapsedMixFarines == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["MixFarine"]
+</button>
+<div class="panel panel-primary @(CollapsedMixFarines ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="Farina1W">@Loc["Farina1W"]</label><br>
+        <InputNumber @bind-Value="calc.Farina1W" id="Farina1W" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Farina1W)"/>
+    </td>
+    <td>
+         <label for="Farina1Pc">@Loc["Farina1Pc"]</label><br>
+        <input type="number" value=@calc.GetFarina1Pc() id="Farina1Pc" disabled="true" min="0" max="100" style="width:150px"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Farina2W">@Loc["Farina2W"]</label><br>
+        <InputNumber @bind-Value="calc.Farina2W" id="Farina2W" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Farina2W)"/>
+    </td>
+    <td>
+         <label for="Farina2Pc">@Loc["Farina2Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Farina2Pc" id="Farina2Pc" style="width:150px"/>
+		<ValidationMessage For="@(() => calc.Farina2Pc)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Farina3W">@Loc["Farina3W"]</label><br>
+        <InputNumber @bind-Value="calc.Farina3W" id="Farina3W" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Farina3W)"/>
+    </td>
+    <td>
+         <label for="Farina3Pc">@Loc["Farina3Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Farina3Pc" id="Farina3Pc" style="width:150px"/>
+		<ValidationMessage For="@(() => calc.Farina3Pc)"/>
+    </td>
+</tr>
+</tbody>
+</table>
+<p>
+	<br>
+    <label><b>@Loc["WMixFarine"]</b></label>
+    <b>@calc.GetWMixFarine()</b>
+</p>
+</div>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedMixEaux = !CollapsedMixEaux">
+    @if ( CollapsedMixEaux == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["DurezzaAcqua"]
+</button>
+<div class="panel panel-primary @(CollapsedMixEaux ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="Acqua1Ca">@Loc["Acqua1Ca"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua1Ca" id="Acqua1Ca" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua1Ca)"/>
+    </td>
+    <td>
+        <label for="Acqua1Mg">@Loc["Acqua1Mg"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua1Mg" id="Acqua1Mg" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua1Mg)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+         <label for="Acqua1Pc">@Loc["Acqua1Pc"]</label><br>
+        <input type="number" value=@calc.GetAcqua1Pc() id="Acqua1Pc" disabled="true" min="0" max="100" style="width:150px"/>
+    </td>
+    <td>
+        <label for="Acqua1Nome">@Loc["Acqua1Nome"]</label><br>
+        <InputText @bind-Value="calc.Acqua1Nome" id="Acqua1Nome" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua1Nome)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Acqua2Ca">@Loc["Acqua2Ca"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua2Ca" id="Acqua2Ca" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua2Ca)"/>
+    </td>
+    <td>
+        <label for="Acqua2Mg">@Loc["Acqua2Mg"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua2Mg" id="Acqua2Mg" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua2Mg)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Acqua2Pc">@Loc["Acqua2Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Acqua2Pc" id="Acqua2Pc" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua2Pc)"/>
+    </td>
+    <td>
+        <label for="Acqua2Nome">@Loc["Acqua2Nome"]</label><br>
+        <InputText @bind-Value="calc.Acqua2Nome" id="Acqua2Nome" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Acqua2Nome)"/>
+    </td>
+</tr>
+</tbody>
+</table>
+<button type="button" class="btn btn-primary btn-sm" @onclick="e => calc.SetVolvicVittel()">
+    <span class="oi oi-contrast"></span> Volvic-Vittel</button>
+<button type="button" class="btn btn-primary btn-sm" @onclick="e => calc.SetVolvicEvian()">
+    <span class="oi oi-contrast"></span> Volvic-Evian</button>
+<p>
+	<br>
+    <label><b>@Loc["DurezzaMixAcque"]</b></label>
+    <b>@calc.GetMixAcque()</b>
+</p>
+</div>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedPresets = !CollapsedPresets">
+    @if ( CollapsedPresets == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["PresetConversioni"]
+</button>
+<div class="panel panel-primary @(CollapsedPresets ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <fieldset>
+            <b><legend>@Loc["LievitoSu"]</legend></b>
+            <input type="radio" id="Ldb_Eau"
+            name="Levure" value="Acqua" @onchange="OnChangeRdLdb" checked=@IsLdbAcqua()>
+            <label for="Ldb_Eau">@Loc["Ldb_Eau"]</label>
+            <br>
+            <input type="radio" id="Ldb_Farine"
+            name="Levure" value="Farina" @onchange="OnChangeRdLdb" checked=@IsLdbFarina()>
+            <label for="Ldb_Farine">@Loc["Ldb_Farine"]</label>
+        </fieldset>
+    </td>
+    <td>
+        <fieldset>
+            <b><legend>@Loc["Calcolo"]</legend></b>
+            <input type="radio" id="Preset_Ldb"
+            name="Calcul" value="PresetLdb" @onchange="OnChangeRdCalcul" checked=@calc.PresetLievito>
+            <label for="Preset_Ldb">Preset Ldb</label>
+            <br>
+            <input type="radio" id="Japi_1"
+            name="Calcul" value="Japi1" @onchange="OnChangeRdCalcul" checked=@IsCalculJapi1()>
+            <label for="Japi_1">Japi 1</label>
+            <br>
+            <input type="radio" id="Japi_2"
+            name="Calcul" value="Japi2" @onchange="OnChangeRdCalcul" checked=@IsCalculJapi2()>
+            <label for="Japi_2">Japi 2</label>
+        </fieldset>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="LievKiloLitroPc">@Loc["LievKiloLitroPc"]</label><br>
+        <InputNumber @bind-Value="calc.LievKiloLitroPc" id="LievKiloLitroPc" style="width:150px"/>
+    </td>
+    <td>
+        <label for="LievKiloLitro">@GetLievKiloLitroLabel()</label><br>
+        <InputNumber @bind-Value="calc.LievKiloLitro" id="LievKiloLitro" style="width:150px"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="SaleKiloLitroPc">@Loc["SaleKiloLitroPc"]</label><br>
+        <InputNumber @bind-Value="calc.SaleKiloLitroPc" id="SaleKiloLitroPc" style="width:150px"/>
+    </td>
+    <td>
+        <label for="SaleKiloLitro">@Loc["SaleKiloLitro"]</label><br>
+        <InputNumber @bind-Value="calc.SaleKiloLitro" id="SaleKiloLitro" style="width:150px"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="GrassiKiloLitroPc">@Loc["GrassiKiloLitroPc"]</label><br>
+        <InputNumber @bind-Value="calc.GrassiKiloLitroPc" id="GrassiKiloLitroPc" style="width:150px"/>
+    </td>
+    <td>
+        <label for="GrassiKiloLitro">@Loc["GrassiKiloLitro"]</label><br>
+        <InputNumber @bind-Value="calc.GrassiKiloLitro" id="GrassiKiloLitro" style="width:150px"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <fieldset>
+            <b><legend>@Loc["TypoLievito"]</legend></b>
+            <input type="radio" id="Ldb_F"
+            name="RapLdbFS" value="LdbF" @onchange="OnChangeRdRapLdbFS" checked=@IsRapLdbF()>
+            <label for="Ldb_F">LdbF</label>
+            <br>
+            <input type="radio" id="Ldb_S"
+            name="RapLdbFS" value="LdbS" @onchange="OnChangeRdRapLdbFS" checked=@IsRapLdbS()>
+            <label for="Ldb_S">LdbS</label>
+        </fieldset>
+    </td>
+    <td>
+        <label for="RapportoLievFS">@Loc["RapportoLievFS"]</label><br>
+        <InputNumber @bind-Value="calc.RapportoLievFS" id="RapportoLievFS" style="width:150px"/>
+    
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="CoefJapi1">Coef. Japi 1</label><br>
+        <InputNumber @bind-Value="calc.CoefCalcolo" id="CoefJapi1" style="width:150px"/>
+    </td>
+    <td>
+        <label for="CoefJapi2">Coef. Japi 2</label><br>
+        <InputNumber @bind-Value="calc.CoefCalcoloAT" id="CoefJapi2" style="width:150px"/>
+    </td>
+</tr>
+</tbody>
+</table>
+@if (calc.PresetLievito == true)
+{
+    <p style="color:#0000FF">@Loc["FormulaBypass"]</p>
+}
+</div>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedAdditivi = !CollapsedAdditivi">
+    @if ( CollapsedAdditivi == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["Additivi"]
+</button>
+<div class="panel panel-primary @(CollapsedAdditivi ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="Additivo1Pc">@Loc["Additivo1Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Additivo1Pc" id="Additivo1Pc" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo1Pc)"/>
+    </td>
+    <td>
+        <label for="Additivo1Nome">@Loc["Additivo1Nome"]</label><br>
+        <input list="Additifs" @bind="calc.Additivo1Nome" type="text" id="Additivo1Nome" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo1Nome)"/>
+        <datalist id="Additifs">
+            <option value=@Loc["AcidoAscorbico"]></option>
+            <option value=@Loc["MaltoDiastasico"]></option>
+            <option value=@Loc["MaltoLiquido"]></option>
+            <option value=@Loc["Miele"]></option>
+            <option value=@Loc["LecitinaSoia"]></option>
+            <option value=@Loc["Zucchero"]></option>
+            <option value=@Loc["Semi"]></option>
+        </datalist>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Additivo2Pc">@Loc["Additivo2Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Additivo2Pc" id="Additivo2Pc" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo2Pc)"/>
+    </td>
+    <td>
+        <label for="Additivo2Nome">@Loc["Additivo2Nome"]</label><br>
+        <input list="Additifs" @bind="calc.Additivo2Nome" type="text" id="Additivo2Nome" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo2Nome)"/>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="Additivo3Pc">@Loc["Additivo3Pc"]</label><br>
+        <InputNumber @bind-Value="calc.Additivo3Pc" id="Additivo3Pc" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo3Pc)"/>
+    </td>
+    <td>
+        <label for="Additivo3Nome">@Loc["Additivo3Nome"]</label><br>
+        <input list="Additifs" @bind="calc.Additivo3Nome" type="text" id="Additivo3Nome" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.Additivo3Nome)"/>
+    </td>
+</tr>
+</tbody>
+</table>
+<p style="color:#0000FF">@Loc["PCCalcolatiSuFarina"]</p>
+</div>
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedPDR = !CollapsedPDR">
+    @if ( CollapsedPDR == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    PDR
+</button>
+<div class="panel panel-primary @(CollapsedPDR ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <fieldset>
+            <b><legend>@Loc["CalcoloSu"]</legend></b>
+            <input type="radio" id="PdrImpasto"
+            name="CalculPDR" value="PdrImpasto" @onchange="OnChangeRdPDR" checked=@IsPdrImpasto()>
+            <label for="PdrImpasto">@Loc["PdrImpasto"]</label>
+            <br>
+            <input type="radio" id="PdrFarina"
+            name="CalculPDR" value="PdrFarina" @onchange="OnChangeRdPDR" checked=@IsPdrFarina()>
+            <label for="PdrFarina">@Loc["PdrFarina"]</label>
+        </fieldset>
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="PdrPc">@Loc["PdrPc"]</label><br>
+        <InputNumber @bind-Value="calc.PdrPc" id="PdrPc" style="width:150px" />
+        <ValidationMessage For="@(() => calc.PdrPc)"/>
+    </td>
+    <td>
+         <label for="PdrGr">@Loc["PdrGr"]</label><br>
+        <input type="number" value=@calc.GetPdrGrammi() id="PdrGr" disabled="true" min="0" max="100" style="width:150px"/>
+    </td>
+</tr>
+</tbody>
+</table>
+<br>
+</div>
+
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedBiga = !CollapsedBiga">
+    @if ( CollapsedBiga == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["AutolBigaPool"]
+</button>
+<div class="panel panel-primary @(CollapsedBiga ? "collapse" : "" ) ">
+<table class="table-sm">
+<tbody>
+<tr>
+    <td>
+        <label for="PreimpOre">@Loc["PreimpOre"]</label>
+        @if (IsPoolish(false))
+        {
+            <label style="color: #0000FF">&nbsp;[2-18]</label>
+        }
+        <br>
+        <InputNumber @bind-Value="calc.PreimpOre" id="PreimpOre" style="width:150px" step="0.5"/>
+        <ValidationMessage For="@(() => calc.PreimpOre)"/>
+    </td>
+    <td>
+        <fieldset>
+            <input type="radio" id="Autolyse"
+            name="TypePreImpasto" value="Autolyse" @onchange="OnChangeRdPreImpasto" checked=@IsAutolyse()>
+            <label for="Autolyse">@Loc["Autolyse"]</label>
+            <br>
+            <input type="radio" id="Biga"
+            name="TypePreImpasto" value="Biga" @onchange="OnChangeRdPreImpasto" checked=@IsBiga()>
+            <label for="Biga">Biga</label>
+            <br>
+            <input type="radio" id="Poolish"
+            name="TypePreImpasto" value="Poolish" @onchange="OnChangeRdPreImpasto" checked=@IsPoolish()>
+            <label for="Poolish">Poolish</label>
+        </fieldset>
+    </td>
+</tr>
+<tr colspan="2">
+    <td>
+        <label for="PreimpFarina">@Loc[""]</label><br>
+        <InputNumber @bind-Value="calc.PreimpFarina" id="PreimpFarina" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.PreimpFarina)"/>
+    </td>
+    <td style="vertical-align: text-top; color: #0000FF">
+        @LabelPreImpastoFarina
+    </td>
+</tr>
+<tr colspan="2">
+    <td>
+        <label for="PreimpAcqua">@Loc["PreimpAcqua"]</label><br>
+        <InputNumber @bind-Value="calc.PreimpAcqua" id="PreimpAcqua" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.PreimpAcqua)"/>
+    </td>
+    <td style="vertical-align: text-top; color: #0000FF">
+        @LabelPreImpastoAcqua
+    </td>
+</tr>
+<tr colspan="2">
+    <td>
+        <label for="PreimpSale">@Loc["PreimpSale"]</label><br>
+        <InputNumber @bind-Value="calc.PreimpSale" id="PreimpSale" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.PreimpSale)"/>
+    </td>
+    <td style="vertical-align: text-top; color: #0000FF">
+        @LabelPreImpastoSale
+    </td>
+</tr>
+<tr colspan="2">
+    <td>
+        <label for="PreimpTemperatura">@Loc["PreimpTemperatura"]</label><br>
+        <InputNumber @bind-Value="calc.PreimpTemperatura" id="PreimpTemperatura" style="width:150px"/>
+        <ValidationMessage For="@(() => calc.PreimpTemperatura)"/>
+    </td>
+    <td style="vertical-align: text-top">
+        @if (IsBiga(false))
+        {
+            <p style="color:#0000FF">(18-20°C @Loc["Consigliati"])</p>
+        }
+        else if (@IsPoolish(false))
+        {
+            <p style="color:#0000FF">(20-21°C @Loc["Consigliati"])</p>
+        }
+    </td>
+</tr>
+<tr>
+    <td>
+        <label for="PreImpLievKiloPc">@Loc["PreImpLievKiloPc"]</label><br>
+        <InputNumber @bind-Value="calc.PreImpLievKiloPc" id="PreImpLievKiloPc" style="width:150px" disabled=@IsAutolyse(false)/>
+    </td>
+    <td valign="bottom">
+        @if (IsAutolyse(false))
+        {
+            <fieldset>
+                <b><legend>@Loc["Metodo"]</legend></b>
+                <input type="radio" id="Italienne"
+                name="Methode" value="IT" @onchange="OnChangeRdMethode" checked=@IsMethodeItalienne()>
+                <label for="Italienne">IT (F:100 E:55)</label>
+                <br>
+                <input type="radio" id="Française"
+                name="Methode" value="FR" @onchange="OnChangeRdMethode" checked=@IsMethodeFrancaise()>
+                <label for="Française">FR (F:50 E:100)</label>
+            </fieldset><br>
+        }
+        <button type="button" class="btn btn-primary btn-sm" @onclick="CalculAutoPreFer"><span class="oi oi-bolt"></span> @Loc["CalcolaAuto"]</button>
+    </td>
+</tr>
+</tbody>
+</table>
+<p style="color:#0000FF">
+    @MsgPresetLdbBiga<br>
+    @GetMsgDureeBiga()
+</p>
+</div>
+
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedNotes = !CollapsedNotes">
+    @if ( CollapsedNotes == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    @Loc["Note"]
+</button>
+<div class="panel panel-primary @(CollapsedNotes ? "collapse" : "" ) ">
+    <InputTextArea @bind-Value="calc.Note" rows="4" cols="33"/>
+    <ValidationMessage For="@(() => calc.Note)"/>
+</div>
+
+
+
+
+<button type="button" class="btn btn-secondary btn-block text-left"
+    @onclick="e => CollapsedImport = !CollapsedImport">
+    @if ( CollapsedImport == true)
+    {
+        <span class="oi oi-caret-right"></span>
+    }
+    else
+    {
+        <span class="oi oi-caret-bottom"></span>
+    }
+    Import-Export
+</button>
+<div class="panel panel-primary @(CollapsedImport ? "collapse" : "" ) ">
+    <div>
+    <label for="NomeRicetta">@Loc["NomeRicetta"]</label><br>
+    <InputText @bind-Value="calc.NomeRicetta" id="NomeRicetta" style="width:315px" />
+    <ValidationMessage For="@(() => calc.NomeRicetta)"/>
+    </div>
+    <br>
+    <InputFile class="btn btn-primary btn-sm" OnChange="@OnInputFileChange"/><br>
+    @if (file != null)
+    {
+        <p style="color:#0000FF">@Loc["NumeroParamLetti"] @NbParamsLoad</p>
+        if (MsgLoad != string.Empty)
+        {
+            <p style="color:#FF0000">@MsgLoad</p>
+        }
+    }
+    <br>
+    <label for="RicettaImp">@Loc["RicettaImp"]</label><br>
+    <InputTextArea @bind-Value="RicettaImp" id="RicettaImp" rows="6" cols="33" />
+    <ValidationMessage For="@(() => RicettaImp)"/><br>
+    <button type="button" class="btn btn-primary btn-sm" @onclick="e => ImporterRecette()">
+        <span class="oi oi-data-transfer-upload"></span> @Loc["ImportaRicetta"]</button>
+    @if (NbParamsImport > 0)
+    {
+        <p style="color:#0000FF">@Loc["NumeroParamLetti"] @NbParamsImport</p>
+    }
+    <!-- non gérées par la validation automatique -->
+    <p style="color:#FF0000">@MsgImport</p>
+    
+    <!-- export -->
+    <br>
+    @Loc["RicettaFormatoXML"]<br>
+    <InputTextArea @bind-Value="RicettaExp" id="RicettaExp" rows="6" cols="33" />
+    <ValidationMessage For="@(() => RicettaExp)"/><br>
+    <button type="button" class="btn btn-primary btn-sm" @onclick="e => ExporterRecette()">
+        <span class="oi oi-aperture"></span> @Loc["GeneraRicetta"]</button>
+    <button type="button" class="btn btn-primary btn-sm" disabled=@IsRecetteExpEmpty() @onclick="e => Sauvegarder()">
+        <span class="oi oi-data-transfer-download"></span> @Loc["Salva"]</button>
+    @if (NbParamsExport > 0)
+    {
+        <p style="color:#0000FF">@Loc["NumeroParamScritti"] @NbParamsExport</p>
+    }
+    <p style="color:#FF0000">@MsgExport</p>
+    <br>
+    @Loc["RisultFormatoTesto"]<br>
+    <InputTextArea @bind-Value="ResultatsTxt" id="ResultatsTxt" rows="6" cols="33" />
+    <ValidationMessage For="@(() => ResultatsTxt)"/><br>
+    <button type="button" class="btn btn-primary btn-sm" @onclick="e => ExporterResultatsTxt()">
+        <span class="oi oi-aperture"></span> @Loc["GeneraRisultTesto"]</button>
+    <p style="color:#FF0000">@MsgExportTexte</p>
+    <br>
+</div>
+
+<!-- génère le tableau Html de résultats, force la validation des champs et supprime les messages d'erreurs inutiles -->
+<br>
+<button type="button submit" class="btn btn-primary btn-block"><span class="oi oi-calculator"></span> @Loc["Calcola"]</button>
+<br>
+@if (Msg != string.Empty)
+{
+    // erreurs non gérées par la validation automatique
+    <p style="color:#FF0000">@Msg</p>
+}
+else if (calc.CalculIsOk == true)
+{
+    <p style="color:#0000FF">@calc.GetWConsigliata()</p>
+    <!-- tableau Html de résultats généré dans un RenderFragment -->
+    <div>@calc.ChildContent</div>
+}
+<div id="bottom"></div>
+<div id="scrollUp">
+    <!-- avec ScrollToTop l'image dans le bouton disparait...
+    <a class="btn btn-dark btn-sm" @onclick="e => ScrollToTop()"><span class="oi oi-arrow-circle-top"></span></a> -->
+    <a href="#top" class="btn btn-dark btn-sm"><span class="oi oi-arrow-circle-top"></span></a>
+</div>
+
+</EditForm>
+
+@code
+{
+    protected CultureInfo CurrentCulture;
+    private string Msg;
+    private string MsgImport;
+    private string MsgExport;
+    private string MsgExportTexte;
+    private string MsgLoad;
+    private string LabelPreImpastoFarina;
+    private string LabelPreImpastoAcqua;
+    private string LabelPreImpastoSale;
+    private string MsgPresetLdbBiga;
+    private string MsgPourcentages;
+    [StringLength(4096, ErrorMessageResourceName="TexteTropLong", ErrorMessageResourceType = typeof(CalcStr))]
+    private string RicettaImp { get; set; }
+    [StringLength(4096, ErrorMessageResourceName="TexteTropLong", ErrorMessageResourceType = typeof(CalcStr))]
+    private string RicettaExp { get; set; }
+    private int NbParamsImport { get; set; }
+    private int NbParamsExport { get; set; }
+    private int NbParamsLoad { get; set; }
+    [StringLength(4096, ErrorMessageResourceName="TexteTropLong", ErrorMessageResourceType = typeof(CalcStr))]
+    private string ResultatsTxt { get; set; }
+    //
+    private List<string> Phases = new List<string>() { "TA", "Frigo" };
+    //
+    private bool CollapsedMixFarines { get; set; } = true;
+    private bool CollapsedMixEaux { get; set; } = true;
+    private bool CollapsedPresets { get; set; } = true;
+    private bool CollapsedBiga { get; set; } = true;
+    private bool CollapsedNotes { get; set; } = true;
+    private bool CollapsedImport { get; set; } = true;
+    private bool CollapsedPhasesTAFrigo { get; set; } = true;
+    private bool CollapsedPDR { get; set; } = true;
+    private bool CollapsedTeglia1 { get; set; } = true;
+    private bool CollapsedTeglia2 { get; set; } = true;
+    private bool CollapsedTeglia3 { get; set; } = true;
+    private bool CollapsedAdditivi { get; set; } = true;
+
+    private Calc calc = new Calc();
+    
+   	// localisation des messages d'erreurs: à tranmettre à Calc dans la méthode Init,
+    // pas dans le constructeur de Calc car le ResourceManager ne l'a pas encore chargé.
+    [Inject]
+    private Microsoft.Extensions.Localization.IStringLocalizer<CalcStr> _CalcStr { get; set; }
+    //
+    private IBrowserFile file;
+    const int maxFileSize = 10485760;
+    private bool DoubleBuffer { get; set; } = true;
+
+    // Initialisations.
+    private string Init()
+    {
+        // redéfinition du symbole décimal et du séparateur horaire pour la culture courante (clone)
+        CurrentCulture = (CultureInfo)Thread.CurrentThread.CurrentCulture.Clone();
+        CurrentCulture.NumberFormat.NumberDecimalSeparator = ".";
+        CurrentCulture.DateTimeFormat.TimeSeparator = ":";
+        CurrentCulture.DateTimeFormat.ShortTimePattern = "HH:mm";
+        CurrentCulture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+        Thread.CurrentThread.CurrentCulture = CurrentCulture;
+        // envoi du IStringLocalizer à Calc
+        calc.LocStr = _CalcStr;
+
+        return string.Empty;// la page demande une chaine...
+    }
+
+    private void Reset()
+    {
+        calc.Init();
+        Msg = string.Empty;
+        MsgLoad = string.Empty;
+        MsgImport = string.Empty;
+        MsgExport = string.Empty;
+        MsgExportTexte = string.Empty;
+        MsgPresetLdbBiga = string.Empty;
+        MsgPourcentages = string.Empty;
+        RicettaExp = string.Empty;
+        NbParamsImport = 0;
+        NbParamsExport = 0;
+        file = null;
+        ResultatsTxt = string.Empty;
+    }
+
+    // Evénèment du composant InputFile.
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        MsgLoad = string.Empty;
+        file = (IBrowserFile)e.File;
+        if (file != null)
+        {
+            var stream = file.OpenReadStream(maxFileSize);
+            var ms = new MemoryStream();
+            await stream.CopyToAsync(ms);
+            //
+            calc.Init();
+            NbParamsLoad = 0;
+            // on est dans un thread différent du thread principal, on transmet le CurrentCulture
+            // à ChargerDonnees
+            NbParamsLoad = calc.ChargerDonnees(ms, ref MsgLoad, in CurrentCulture);
+        }
+    }
+
+    // Importation d'une recette.
+    private void ImporterRecette()
+    {
+        calc.Init();// ne pas initialiser TblResult sinon plantage, on vide seulement le RenderFragment...
+        MsgImport = string.Empty;
+        NbParamsImport = 0;
+        NbParamsImport = calc.ImportaRicetta(RicettaImp, ref MsgImport);
+        RicettaImp = string.Empty;
+    }
+
+    // Exportation d'une recette.
+    // 22/02/2021: bugfix .Net5, envoi du CurrentCulture à ExporterDonneesXml.
+    private void ExporterRecette()
+    {
+        try
+		{
+            var ms = new MemoryStream();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            settings.Encoding = Encoding.UTF8;
+            XmlWriter xmlWriter = XmlWriter.Create(ms, settings);
+
+            MsgExport = string.Empty;
+            NbParamsExport = 0;
+            NbParamsExport = calc.ExporterDonneesXml(ref xmlWriter, ref MsgExport, in CurrentCulture);
+            if (MsgExport == string.Empty)
+            {
+                ms.Seek(0L, SeekOrigin.Begin);
+                var reader = new StreamReader(ms);
+                RicettaExp = reader.ReadToEnd();
+            }
+        }
+        catch (Exception ex)
+        {
+            MsgExport += ex.Message;
+        }
+    }
+
+    // Sauvegarde du fichier recette.
+    private async Task Sauvegarder()
+    {
+        await FileSaver.SaveAs(calc.NomeRicetta + ".xml", RicettaExp);
+    }
+
+    // Retourne vrai si la recette est vide.
+    private bool IsRecetteExpEmpty()
+    {
+        if (String.IsNullOrEmpty(RicettaExp))
+            return true;
+        else
+            return false;
+    }
+
+    // Exportation des résultats au format texte simple.
+    private void ExporterResultatsTxt()
+    {
+        MsgExportTexte = string.Empty;
+        // on passe par une chaine intermédiaire pour avoir le DataValidation sur le controle ResultatsTxt
+        string strResultatsTxt = string.Empty;
+        calc.GenererExportTexte(ref strResultatsTxt, ref MsgExportTexte);
+        ResultatsTxt = strResultatsTxt;
+    }
+
+    // Changement du radio bouton "Levure".
+    private void OnChangeRdLdb(ChangeEventArgs args)
+    {
+        calc.SetCalculLdb(args.Value.ToString());
+    }
+    // Retourne vrai si calcul sur eau.
+    private bool IsLdbAcqua()
+    {
+        if (calc.TypeCalcul == Convert.ToInt16(Calc.eTypeCalcul.Acqua))
+            return true;
+        return false;
+    }
+    // Retourne vrai si calcul sur farine.
+    private bool IsLdbFarina()
+    {
+        if (calc.TypeCalcul == Convert.ToInt16(Calc.eTypeCalcul.Farina))
+            return true;
+        return false;
+    }
+
+    // Changement du radio bouton "Calcul"
+    private void OnChangeRdCalcul(ChangeEventArgs args)
+    {
+        calc.SetTypeCalcul(args.Value.ToString());
+    }
+    // Retourne vrai si calcul Japi1.
+    private bool IsCalculJapi1()
+    {
+        if (!calc.CalculChaleur && !calc.PresetLievito)
+            return true;
+        return false;
+    }
+    // Retourne vrai si calcul Japi2.
+    private bool IsCalculJapi2()
+    {
+        if (calc.CalculChaleur && !calc.PresetLievito)
+            return true;
+        return false;
+    }
+
+    // Changement du radio bouton "RapLdbFS".
+    private void OnChangeRdRapLdbFS(ChangeEventArgs args)
+    {
+        calc.SetTypeLdb(args.Value.ToString());
+    }
+    // Retourne vrai si levure F.
+    private bool IsRapLdbF()
+    {
+        if (calc.LievitoFS == Calc.eLievito.LdbF)
+            return true;
+        return false;
+    }
+    // Retourne vrai si levure S.
+    private bool IsRapLdbS()
+    {
+        if (calc.LievitoFS == Calc.eLievito.LdbS)
+            return true;
+        return false;
+    }
+
+    // Recompose le label de l'unité de levure.
+    private string GetLievKiloLitroLabel()
+    {
+        string strText = @Loc["Lievito"];
+        if (calc.TypeCalcul == Convert.ToInt16(Calc.eTypeCalcul.Acqua))
+            strText += "(g/l)";
+        else
+            strText += "(g/kg)";
+        return strText;
+    }
+
+    // Validation du formulaire.
+    private void ValidSubmit()
+    {
+        Msg = string.Empty;
+        MsgExportTexte = string.Empty;
+        calc.GenererHtmlResult(ref Msg);
+        //
+        // Scroll jusqu'en bas à travers une fonction javascript.
+        JSRuntime.InvokeVoidAsync("ScrollToBottom");
+    }
+
+    // Scroll jusqu'en haut à travers une fonction javascript.
+    private void ScrollToTop()
+    {
+        JSRuntime.InvokeVoidAsync("ScrollToTop");
+    }
+
+    // Retourne vrai si la PDR est calculée sur l'empâtement total.
+    private bool IsPdrImpasto()
+    {
+        if (calc.PdrCalc == Convert.ToInt16(Calc.eModeCalcul.ImpastoTotale))
+            return true;
+        return false;
+    }
+    // Retourne vrai si la PDR est calculée sur la farine seule.
+    private bool IsPdrFarina()
+    {
+        if (calc.PdrCalc == Convert.ToInt16(Calc.eModeCalcul.FarinaSola))
+            return true;
+        return false;
+    }
+    // Changement du radio bouton "Calcul PDR".
+    private void OnChangeRdPDR(ChangeEventArgs args)
+    {
+        calc.SetCalculPDR(args.Value.ToString());
+    }
+
+    // Changement du radio bouton "TypePreImpasto"
+    private void OnChangeRdPreImpasto(ChangeEventArgs args)
+    {
+        calc.SetTypePreImpasto(args.Value.ToString());
+        if (calc.PresetLievito == true)
+            MsgPresetLdbBiga = "/!\\ " + @Loc["ControlCalcoloLdb"];
+        else
+            MsgPresetLdbBiga = string.Empty;
+    }
+    // Bouton Calcul auto
+    private void CalculAutoPreFer()
+    {
+        calc.SetValuesPreImpasto();
+        if (IsBiga(false) || IsPoolish(false))
+            MsgPresetLdbBiga = "/!\\ " + @Loc["PresetLdbRicetta0"];
+        else if (calc.PresetLievito == false)
+            MsgPresetLdbBiga = string.Empty;
+    }
+    // Retourne le message définissant la durée conseillée pour la Biga.
+    private string GetMsgDureeBiga()
+    {
+        if (IsBiga(false))
+            return calc.GetDureeBiga();
+        else
+            return string.Empty;
+    }
+    // Retourne vrai si Autolyse.
+    private bool IsAutolyse(bool bLabel=true)
+    {
+        if (calc.TypePreimpasto == Convert.ToInt16(Calc.eTypePreimpasto.Autolyse))
+        {
+            if (bLabel == true)
+            {
+                LabelPreImpastoFarina = @Loc["PcSuFarinaRicetta"];
+                LabelPreImpastoAcqua = @Loc["PcSuAcquaRicetta"];
+                LabelPreImpastoSale = @Loc["PcSuFarinaAutolisi"];
+            }
+            return true;
+        }
+        return false;
+    }
+    // Retourne vrai si Biga.
+    private bool IsBiga(bool bLabel=true)
+    {
+        if (calc.TypePreimpasto == Convert.ToInt16(Calc.eTypePreimpasto.Biga))
+        {
+            if (bLabel == true)
+            {
+                LabelPreImpastoFarina = @Loc["PcSuFarinaRicetta"];
+                LabelPreImpastoAcqua = @Loc["PcSuFarinaBiga"];
+                LabelPreImpastoSale = @Loc["PcSuFarinaBiga"];
+            }
+            return true;
+        }
+        return false;
+    }
+    // Retourne vrai si Poolish.
+    private bool IsPoolish(bool bLabel=true)
+    {
+        if (calc.TypePreimpasto == Convert.ToInt16(Calc.eTypePreimpasto.Poolish))
+        {
+            if (bLabel == true)
+            {
+                LabelPreImpastoFarina = @Loc["PcSuAcquaPoolish"];
+                LabelPreImpastoAcqua = @Loc["PcSuAcquaRicetta"];
+                LabelPreImpastoSale = @Loc["PcSuFarinaPoolish"];
+            }
+            return true;
+        }
+        return false;
+    }
+    // Changement du radio bouton "Méthode".
+    private void OnChangeRdMethode(ChangeEventArgs args)
+    {
+        calc.SetMethodeAutolyse(args.Value.ToString());
+    }
+    // Retourne vrai si méthode Italienne.
+    private bool IsMethodeItalienne()
+    {
+        if (calc.TypeMethode == Convert.ToInt16(Calc.eTypeMethode.Italienne))
+            return true;
+        return false;
+    }
+    // Retourne vrai si méthode Française.
+    private bool IsMethodeFrancaise()
+    {
+        if (calc.TypeMethode == Convert.ToInt16(Calc.eTypeMethode.Française))
+            return true;
+        return false;
+    }
+
+    // Changement d'état de la checkbox QuantitesChoix2.
+    private void OnChangeQuantitesChoix2(ChangeEventArgs args)
+    {
+        if (args.Value.ToString().Equals("true", StringComparison.OrdinalIgnoreCase) == true)
+            calc.ChoixQuantites = Calc.eQuantites.Choix2;
+        else
+            calc.ChoixQuantites = Calc.eQuantites.Choix1;
+    }
+    // Retourne vrai si QuantiteChoix1.
+    private bool IsQuantitesChoix1()
+    {
+        if (calc.ChoixQuantites == Calc.eQuantites.Choix1)
+            return true;
+        return false;
+    }
+    // Retourne vrai si QuantiteChoix2.
+    private bool IsQuantitesChoix2()
+    {
+        if (calc.ChoixQuantites == Calc.eQuantites.Choix2)
+            return true;
+        return false;
+    }
+
+    // Bouton 'Appliquer %'.
+    private void SetPourcentagesQtes()
+    {
+        MsgPourcentages = string.Empty;
+        calc.UsaPercentuale(ref MsgPourcentages);
+    }
+
+    // Gestion des événements sur les combobox des phases TA-Frigo.
+    private void OnChangeCbPointagePhases1(ChangeEventArgs args)
+    {
+        calc.PointagePhase1 = args.Value.ToString();
+    }
+    private void OnChangeCbPointagePhases2(ChangeEventArgs args)
+    {
+        calc.PointagePhase2 = args.Value.ToString();
+    }
+    private void OnChangeCbPointagePhases3(ChangeEventArgs args)
+    {
+        calc.PointagePhase3 = args.Value.ToString();
+    }
+    private void OnChangeCbAppretPhases1(ChangeEventArgs args)
+    {
+        calc.AppretPhase1 = args.Value.ToString();
+    }
+    private void OnChangeCbAppretPhases2(ChangeEventArgs args)
+    {
+        calc.AppretPhase2 = args.Value.ToString();
+    }
+    private void OnChangeCbAppretPhases3(ChangeEventArgs args)
+    {
+        calc.AppretPhase3 = args.Value.ToString();
+    }
+    // fin gestion phases TA-Frigo.
+}

@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="NumeroPanielli" xml:space="preserve">
+    <value>Numero Panielli</value>
+    <comment/>
+  </data>
+  <data name="PesoPanielli" xml:space="preserve">
+    <value>Peso panielli (g)</value>
+    <comment/>
+  </data>
+  <data name="PlaqueTeglia" xml:space="preserve">
+    <value>Dim. Teglia</value>
+    <comment/>
+  </data>
+  <data name="TLunghezza" xml:space="preserve">
+    <value>Lunghezza (cm)</value>
+    <comment/>
+  </data>
+  <data name="TLarghezza" xml:space="preserve">
+    <value>Larghezza (cm)</value>
+    <comment/>
+  </data>
+  <data name="TMajorPc" xml:space="preserve">
+    <value>+/- (%)</value>
+    <comment/>
+  </data>
+  <data name="Idro" xml:space="preserve">
+    <value>Idratazione (%)</value>
+    <comment/>
+  </data>
+  <data name="SaleLitro" xml:space="preserve">
+    <value>Sale (g/l)</value>
+    <comment/>
+  </data>
+  <data name="GrassiLitro" xml:space="preserve">
+    <value>Grassi (g/l)</value>
+    <comment/>
+  </data>
+  <data name="QuantitesChoix2" xml:space="preserve">
+    <value>Immissione diretta qtà</value>
+    <comment/>
+  </data>
+  <data name="PourcentagesQtes" xml:space="preserve">
+    <value>Applicare % sulla farina</value>
+    <comment/>
+  </data>
+  <data name="Farina" xml:space="preserve">
+    <value>Farina (g)</value>
+    <comment/>
+  </data>
+  <data name="Acqua" xml:space="preserve">
+    <value>Acqua (g)</value>
+    <comment/>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale (g)</value>
+    <comment/>
+  </data>
+  <data name="Grassi" xml:space="preserve">
+    <value>Grassi (g)</value>
+    <comment/>
+  </data>
+  <data name="Tempistiche" xml:space="preserve">
+    <value>Tempistiche-Temperature</value>
+    <comment/>
+  </data>
+  <data name="Impastamento" xml:space="preserve">
+    <value>Impastamento (min)</value>
+    <comment/>
+  </data>
+  <data name="PuntataOre" xml:space="preserve">
+    <value>Puntata (h)</value>
+    <comment/>
+  </data>
+  <data name="ApprettoOre" xml:space="preserve">
+    <value>Appretto (h)</value>
+    <comment/>
+  </data>
+  <data name="FrigoOre" xml:space="preserve">
+    <value>di cui Frigo (h)</value>
+    <comment/>
+  </data>
+  <data name="PuntataTemp" xml:space="preserve">
+    <value>Temp. Puntata (°C)</value>
+    <comment/>
+  </data>
+  <data name="ApprettoTemp" xml:space="preserve">
+    <value>Temp. Appretto (°C)</value>
+    <comment/>
+  </data>
+  <data name="CotturaDataOra" xml:space="preserve">
+    <value>Data di cottura</value>
+    <comment/>
+  </data>
+  <data name="CotturaOra" xml:space="preserve">
+    <value>Ora di cottura</value>
+    <comment/>
+  </data>
+  <data name="FasiTA-Frigo" xml:space="preserve">
+    <value> Fasi TA-Frigo</value>
+    <comment/>
+  </data>
+  <data name="FasiPuntata" xml:space="preserve">
+    <value>Fasi di puntata</value>
+    <comment/>
+  </data>
+  <data name="TotalPointage" xml:space="preserve">
+    <value>Totale (h)</value>
+    <comment/>
+  </data>
+  <data name="TotalPointageFrigo" xml:space="preserve">
+    <value>Totale Frigo (h)</value>
+    <comment/>
+  </data>
+  <data name="FasiAppretto" xml:space="preserve">
+    <value>Fasi di appretto</value>
+    <comment/>
+  </data>
+  <data name="TotalAppret" xml:space="preserve">
+    <value>Totale (h)</value>
+    <comment/>
+  </data>
+  <data name="TotalAppretFrigo" xml:space="preserve">
+    <value>Totale Frigo (h)</value>
+    <comment/>
+  </data>
+  <data name="ResetFasi" xml:space="preserve">
+    <value>Reset Fasi</value>
+    <comment/>
+  </data>
+  <data name="MixFarine" xml:space="preserve">
+    <value> Mix di farine</value>
+    <comment/>
+  </data>
+  <data name="Farina1W" xml:space="preserve">
+    <value>Farina 1 (W)</value>
+    <comment/>
+  </data>
+  <data name="Farina1Pc" xml:space="preserve">
+    <value>Farina 1 (%)</value>
+    <comment/>
+  </data>
+  <data name="Farina2W" xml:space="preserve">
+    <value>Farina 2 (W)</value>
+    <comment/>
+  </data>
+  <data name="Farina3W" xml:space="preserve">
+    <value>Farina 3 (W)</value>
+    <comment/>
+  </data>
+  <data name="Farina2Pc" xml:space="preserve">
+    <value>Farina 2 (%)</value>
+    <comment/>
+  </data>
+  <data name="Farina3Pc" xml:space="preserve">
+    <value>Farina 3 (%)</value>
+    <comment/>
+  </data>
+  <data name="WMixFarine" xml:space="preserve">
+    <value>W del mix di farine:</value>
+    <comment/>
+  </data>
+  <data name="DurezzaAcqua" xml:space="preserve">
+    <value> Durezza acqua</value>
+    <comment/>
+  </data>
+  <data name="Acqua1Ca" xml:space="preserve">
+    <value>Acqua 1: Ca (mg/l)</value>
+    <comment/>
+  </data>
+  <data name="Acqua1Mg" xml:space="preserve">
+    <value>Acqua 1: Mg (mg/l)</value>
+    <comment/>
+  </data>
+  <data name="Acqua1Pc" xml:space="preserve">
+    <value>Qtà Acqua 1 (%)</value>
+    <comment/>
+  </data>
+  <data name="Acqua2Ca" xml:space="preserve">
+    <value>Acqua 2: Ca (mg/l)</value>
+    <comment/>
+  </data>
+  <data name="Acqua2Mg" xml:space="preserve">
+    <value>Acqua 2: Mg (mg/l)</value>
+    <comment/>
+  </data>
+  <data name="Acqua2Pc" xml:space="preserve">
+    <value>Qtà Acqua 2 (%)</value>
+    <comment/>
+  </data>
+  <data name="Acqua1Nome" xml:space="preserve">
+    <value>Acqua 1: Nome</value>
+    <comment/>
+  </data>
+  <data name="Acqua2Nome" xml:space="preserve">
+    <value>Acqua 2: Nome</value>
+    <comment/>
+  </data>
+  <data name="DurezzaMixAcque" xml:space="preserve">
+    <value>Durezza del mix d'acque:</value>
+    <comment/>
+  </data>
+  <data name="PresetConversioni" xml:space="preserve">
+    <value> Preset-Conversioni</value>
+    <comment/>
+  </data>
+  <data name="LievitoSu" xml:space="preserve">
+    <value>Lievito su:</value>
+    <comment/>
+  </data>
+  <data name="Ldb_Eau" xml:space="preserve">
+    <value>Acqua</value>
+    <comment/>
+  </data>
+  <data name="Ldb_Farine" xml:space="preserve">
+    <value>Farina</value>
+    <comment/>
+  </data>
+  <data name="Calcolo" xml:space="preserve">
+    <value>Calcolo :</value>
+    <comment/>
+  </data>
+  <data name="LievKiloLitroPc" xml:space="preserve">
+    <value>Lievito (%)</value>
+    <comment/>
+  </data>
+  <data name="SaleKiloLitroPc" xml:space="preserve">
+    <value>Sale / farina (%)</value>
+    <comment/>
+  </data>
+  <data name="SaleKiloLitro" xml:space="preserve">
+    <value>Sale / farina (g/kg)</value>
+    <comment/>
+  </data>
+  <data name="GrassiKiloLitroPc" xml:space="preserve">
+    <value>Grassi / farina (%)</value>
+    <comment/>
+  </data>
+  <data name="GrassiKiloLitro" xml:space="preserve">
+    <value>Grassi / farina (g/kg)</value>
+    <comment/>
+  </data>
+  <data name="TypoLievito" xml:space="preserve">
+    <value>Typo lievito :</value>
+    <comment/>
+  </data>
+  <data name="RapportoLievFS" xml:space="preserve">
+    <value>Rapporto LdbF / LdbS</value>
+    <comment/>
+  </data>
+  <data name="FormulaBypass" xml:space="preserve">
+    <value>Formula di calcolo lievito bypassata</value>
+    <comment/>
+  </data>
+  <data name="Additivi" xml:space="preserve">
+    <value> Additivi</value>
+    <comment/>
+  </data>
+  <data name="Additivo1Pc" xml:space="preserve">
+    <value>Additivo 1 (%)</value>
+    <comment/>
+  </data>
+  <data name="Additivo1Nome" xml:space="preserve">
+    <value>Additivo 1: Nome</value>
+    <comment/>
+  </data>
+  <data name="AcidoAscorbico" xml:space="preserve">
+    <value>Acido ascorbico</value>
+    <comment/>
+  </data>
+  <data name="MaltoDiastasico" xml:space="preserve">
+    <value>Malto diastasico</value>
+    <comment/>
+  </data>
+  <data name="MaltoLiquido" xml:space="preserve">
+    <value>Malto est.liquido</value>
+    <comment/>
+  </data>
+  <data name="Miele" xml:space="preserve">
+    <value>Miele</value>
+    <comment/>
+  </data>
+  <data name="LecitinaSoia" xml:space="preserve">
+    <value>Lecitina di soia</value>
+    <comment/>
+  </data>
+  <data name="Zucchero" xml:space="preserve">
+    <value>Zucchero</value>
+    <comment/>
+  </data>
+  <data name="Semi" xml:space="preserve">
+    <value>Semi</value>
+    <comment/>
+  </data>
+  <data name="Additivo2Pc" xml:space="preserve">
+    <value>Additivo 2 (%)</value>
+    <comment/>
+  </data>
+  <data name="Additivo2Nome" xml:space="preserve">
+    <value>Additivo 2: Nome</value>
+    <comment/>
+  </data>
+  <data name="Additivo3Pc" xml:space="preserve">
+    <value>Additivo 3 (%)</value>
+    <comment/>
+  </data>
+  <data name="Additivo3Nome" xml:space="preserve">
+    <value>Additivo 3: Nome</value>
+    <comment/>
+  </data>
+  <data name="PCCalcolatiSuFarina" xml:space="preserve">
+    <value>I % sono calcolati sulla farina</value>
+    <comment/>
+  </data>
+  <data name="CalcoloSu" xml:space="preserve">
+    <value>Calcolo su :</value>
+    <comment/>
+  </data>
+  <data name="PdrImpasto" xml:space="preserve">
+    <value>Impasto</value>
+    <comment/>
+  </data>
+  <data name="PdrFarina" xml:space="preserve">
+    <value>Farina sola</value>
+    <comment/>
+  </data>
+  <data name="PdrPc" xml:space="preserve">
+    <value>Qtà (%)</value>
+    <comment/>
+  </data>
+  <data name="PdrGr" xml:space="preserve">
+    <value>Qtà (g)</value>
+    <comment/>
+  </data>
+  <data name="AutolBigaPool" xml:space="preserve">
+    <value> Autolisi-Biga-Poolish</value>
+    <comment/>
+  </data>
+  <data name="PreimpOre" xml:space="preserve">
+    <value>Durata (h)</value>
+    <comment/>
+  </data>
+  <data name="Autolyse" xml:space="preserve">
+    <value>Autolisi</value>
+    <comment/>
+  </data>
+  <data name="PreimpFarina" xml:space="preserve">
+    <value>Farina (%) =&gt;</value>
+    <comment/>
+  </data>
+  <data name="PreimpAcqua" xml:space="preserve">
+    <value>Acqua (%) =&gt;</value>
+    <comment/>
+  </data>
+  <data name="PreimpSale" xml:space="preserve">
+    <value>Sale (%) =&gt;</value>
+    <comment/>
+  </data>
+  <data name="PreimpTemperatura" xml:space="preserve">
+    <value>Temp. (°C)</value>
+    <comment/>
+  </data>
+  <data name="PreImpLievKiloPc" xml:space="preserve">
+    <value>Lievito (%)</value>
+    <comment/>
+  </data>
+  <data name="Metodo" xml:space="preserve">
+    <value>Metodo :</value>
+    <comment/>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value> Note</value>
+    <comment/>
+  </data>
+  <data name="NomeRicetta" xml:space="preserve">
+    <value>Nome ricetta</value>
+    <comment/>
+  </data>
+  <data name="NumeroParamLetti" xml:space="preserve">
+    <value>Numero di parametri letti:</value>
+    <comment/>
+  </data>
+  <data name="RicettaImp" xml:space="preserve">
+    <value>o incollare la ricetta da importare</value>
+    <comment/>
+  </data>
+  <data name="ImportaRicetta" xml:space="preserve">
+    <value>Importa ricetta</value>
+    <comment/>
+  </data>
+  <data name="RicettaFormatoXML" xml:space="preserve">
+    <value>Ricetta in formato XML</value>
+    <comment/>
+  </data>
+  <data name="GeneraRicetta" xml:space="preserve">
+    <value>Genera ricetta</value>
+    <comment/>
+  </data>
+  <data name="Salva" xml:space="preserve">
+    <value>Salva</value>
+    <comment/>
+  </data>
+  <data name="NumeroParamScritti" xml:space="preserve">
+    <value>Numero di parametri scritti:</value>
+    <comment/>
+  </data>
+  <data name="RisultFormatoTesto" xml:space="preserve">
+    <value>Risultati in formato testo</value>
+    <comment/>
+  </data>
+  <data name="GeneraRisultTesto" xml:space="preserve">
+    <value>Genera risultati testo</value>
+    <comment/>
+  </data>
+  <data name="Calcola" xml:space="preserve">
+    <value>Calcola</value>
+    <comment/>
+  </data>
+  <data name="Consigliati" xml:space="preserve">
+    <value>consigliati</value>
+    <comment/>
+  </data>
+  <data name="Lievito" xml:space="preserve">
+    <value>Lievito </value>
+    <comment/>
+  </data>
+  <data name="PcSuFarinaRicetta" xml:space="preserve">
+    <value>% sulla farina della ricetta</value>
+    <comment/>
+  </data>
+  <data name="PcSuAcquaRicetta" xml:space="preserve">
+    <value>% sull'acqua della ricetta</value>
+    <comment/>
+  </data>
+  <data name="PcSuFarinaAutolisi" xml:space="preserve">
+    <value>% sulla farina dell'autolisi</value>
+    <comment/>
+  </data>
+  <data name="PcSuFarinaBiga" xml:space="preserve">
+    <value>% sulla farina della biga</value>
+    <comment/>
+  </data>
+  <data name="PcSuAcquaPoolish" xml:space="preserve">
+    <value>% sull'acqua del poolish</value>
+    <comment/>
+  </data>
+  <data name="PcSuFarinaPoolish" xml:space="preserve">
+    <value>% sulla farina del poolish</value>
+    <comment/>
+  </data>
+  <data name="ControlCalcoloLdb" xml:space="preserve">
+    <value>Controllare la scelta del calcolo Ldb</value>
+    <comment/>
+  </data>
+  <data name="PresetLdbRicetta0" xml:space="preserve">
+    <value>Preset Ldb Ricetta = 0% (modificabile nei preset)</value>
+    <comment/>
+  </data>
+  <data name="CalcolaAuto" xml:space="preserve">
+    <value>Calcolo auto</value>
+    <comment/>
+  </data>
+  <data name="Quantità" xml:space="preserve">
+    <value>Quantità</value>
+    <comment/>
+  </data>
+  <data name="TestoInit" xml:space="preserve">
+    <value>Inserisci i parametri della ricetta, poi fai clic sul pulsante "Calcola".</value>
+    <comment/>
+  </data>
+</root>

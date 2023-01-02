@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TexteTropLong" xml:space="preserve">
+    <value>Le texte est trop long ({1} car max)</value>
+    <comment/>
+  </data>
+  <data name="ValeurPosSup0Requis" xml:space="preserve">
+    <value>Valeur positive &gt;0 requise</value>
+    <comment/>
+  </data>
+  <data name="ValeurPosRequis" xml:space="preserve">
+    <value>Valeur positive requise</value>
+    <comment/>
+  </data>
+  <data name="ValNonValidPlage" xml:space="preserve">
+    <value>Valeur non valide ({1}-{2})</value>
+    <comment/>
+  </data>
+  <data name="HeureFriNoSupTotalHeure" xml:space="preserve">
+    <value>Les heures de frigo ne doivent pas dépasser le total des heures -1</value>
+    <comment/>
+  </data>
+  <data name="DurataMaturConsigliata" xml:space="preserve">
+    <value>Durée de maturation conseillée:</value>
+    <comment/>
+  </data>
+  <data name="ValPositivesRequises" xml:space="preserve">
+    <value>Les valeurs saisies doivent être positives</value>
+    <comment/>
+  </data>
+  <data name="NbePatonsPositifRequis" xml:space="preserve">
+    <value>Veuillez définir un nombre de pâtons &gt; 0</value>
+    <comment/>
+  </data>
+  <data name="PoidsPatonPositifRequis" xml:space="preserve">
+    <value>Veuillez définir un poids de pâton &gt; 0</value>
+    <comment/>
+  </data>
+  <data name="PcHydratEntre50_100" xml:space="preserve">
+    <value>Le pourcentage d'hydratation doit être compris entre 50% et 100%</value>
+    <comment/>
+  </data>
+  <data name="TauxSellitreEntre0_60" xml:space="preserve">
+    <value>Le taux de sel/litre doit être compris entre 0 et 60</value>
+    <comment/>
+  </data>
+  <data name="TauxHuilelitreEntre0_60" xml:space="preserve">
+    <value>Le taux d'huile/litre doit être compris entre 0 et 60</value>
+    <comment/>
+  </data>
+  <data name="PoidsFarinePositifRequis" xml:space="preserve">
+    <value>Le poids de la farine doit être &gt; 0</value>
+    <comment/>
+  </data>
+  <data name="PoidsEauPositifRequis" xml:space="preserve">
+    <value>Le poids de l'eau doit être &gt; 0</value>
+    <comment/>
+  </data>
+  <data name="DureePetrissEntre0_99" xml:space="preserve">
+    <value>La durée de pétrissage doit être comprise entre 0 et 99 min</value>
+    <comment/>
+  </data>
+  <data name="TempEntre15_35" xml:space="preserve">
+    <value>La température doit être comprise entre 15°C et 35°C</value>
+    <comment/>
+  </data>
+  <data name="DureeTotMaturEntre3_96" xml:space="preserve">
+    <value>La durée totale de maturation doit être comprise entre 3h et 96h</value>
+    <comment/>
+  </data>
+  <data name="CoefCalcEntre10_100" xml:space="preserve">
+    <value>Le coefficient de calcul doit être compris entre 10 et 100</value>
+    <comment/>
+  </data>
+  <data name="CoefCalcEntre100_6000" xml:space="preserve">
+    <value>Le coefficient de calcul doit être compris entre 100 et 6000</value>
+    <comment/>
+  </data>
+  <data name="WFarineEntre90_450" xml:space="preserve">
+    <value>W farine doit être compris entre 90 et 450</value>
+    <comment/>
+  </data>
+  <data name="QteCaMgEntre0_1000" xml:space="preserve">
+    <value>Les quantités de calcium et magnesium doivent être comprises entre 0 et 1000</value>
+    <comment/>
+  </data>
+  <data name="DureeAutoBigaPoolishEntre0_48" xml:space="preserve">
+    <value>La durée de (autolyse, biga ou poolish) doit être comprise entre 0 et 48h</value>
+    <comment/>
+  </data>
+  <data name="PcIngredAutoBigaPoolEntre0_100" xml:space="preserve">
+    <value>Chaque % d'ingrédient de (autolyse, biga ou poolish) doit être compris entre 0 et 100%</value>
+    <comment/>
+  </data>
+  <data name="DiminuerPcFarineEauPool" xml:space="preserve">
+    <value>Vous devez diminuer le % de farine ou le % d'eau (Poolish)</value>
+    <comment/>
+  </data>
+  <data name="DiminuerPcFarineEauBiga" xml:space="preserve">
+    <value>Vous devez diminuer le % de farine ou le % d'eau (Biga)</value>
+    <comment/>
+  </data>
+  <data name="DiminuerPcFarineSel" xml:space="preserve">
+    <value>Vous devez diminuer le % de farine ou le % de sel</value>
+    <comment/>
+  </data>
+  <data name="Autolyse" xml:space="preserve">
+    <value>Autolyse</value>
+    <comment/>
+  </data>
+  <data name="DiminuerPcFarineSelPool" xml:space="preserve">
+    <value>Vous devez diminuer le % de farine ou le % de sel (Poolish)</value>
+    <comment/>
+  </data>
+  <data name="ForceFarineConseillee" xml:space="preserve">
+    <value>Force farine indicative conseillée: W ≈ {0} (équivalent protéines ≈ {1})</value>
+    <comment/>
+  </data>
+  <data name="ErreurHeuresPointageTAFrigo" xml:space="preserve">
+    <value>Erreur sur heures de pointage dans les phases TA-Frigo</value>
+    <comment/>
+  </data>
+  <data name="ErreurHeuresAppretTAFrigo" xml:space="preserve">
+    <value>Erreur sur heures d'apprêt dans les phases TA-Frigo</value>
+    <comment/>
+  </data>
+  <data name="ErreurHeuresFrigoTAFrigo" xml:space="preserve">
+    <value>Erreur sur heures de frigo dans les phases TA-Frigo</value>
+    <comment/>
+  </data>
+  <data name="Patons" xml:space="preserve">
+    <value>Pâtons</value>
+    <comment/>
+  </data>
+  <data name="PoidsTotal" xml:space="preserve">
+    <value>Poids total</value>
+    <comment/>
+  </data>
+  <data name="Ingredients" xml:space="preserve">
+    <value>Ingrédients</value>
+    <comment/>
+  </data>
+  <data name="Farine" xml:space="preserve">
+    <value>Farine</value>
+    <comment/>
+  </data>
+  <data name="Eau" xml:space="preserve">
+    <value>Eau</value>
+    <comment/>
+  </data>
+  <data name="Sel" xml:space="preserve">
+    <value>Sel</value>
+    <comment/>
+  </data>
+  <data name="Huile" xml:space="preserve">
+    <value>Huile</value>
+    <comment/>
+  </data>
+  <data name="Levure" xml:space="preserve">
+    <value>Levure</value>
+    <comment/>
+  </data>
+  <data name="Horaires" xml:space="preserve">
+    <value>Horaires</value>
+    <comment/>
+  </data>
+  <data name="Petrissage" xml:space="preserve">
+    <value>Pétrissage</value>
+    <comment/>
+  </data>
+  <data name="Pointage" xml:space="preserve">
+    <value>Pointage</value>
+    <comment/>
+  </data>
+  <data name="Appret" xml:space="preserve">
+    <value>Apprêt</value>
+    <comment/>
+  </data>
+  <data name="Cuisson" xml:space="preserve">
+    <value>Cuisson</value>
+    <comment/>
+  </data>
+  <data name="Infos" xml:space="preserve">
+    <value>Infos</value>
+    <comment/>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Température</value>
+    <comment/>
+  </data>
+  <data name="DureeTotale" xml:space="preserve">
+    <value>Durée Totale</value>
+    <comment/>
+  </data>
+  <data name="MixFarines" xml:space="preserve">
+    <value>Mix Farines</value>
+    <comment/>
+  </data>
+  <data name="MixEaux" xml:space="preserve">
+    <value>Mix Eaux</value>
+    <comment/>
+  </data>
+  <data name="Calcul" xml:space="preserve">
+    <value>Calcul</value>
+    <comment/>
+  </data>
+</root>
