@@ -8,7 +8,7 @@
 
 Ce dépot ne contient que les sources. Pour exécuter l'application, deux serveurs de pages statiques sont disponibles:
 
-[Rafbor42.github.io](https://rafbor42.github.io): v1.0.520.0
+[Rafbor42.github.io](https://rafbor42.github.io): v1.0.520.0</br>
 [RafCalc.surge.sh](https://rafcalc.surge.sh/): v1.1.412.0
 
 **Attention**: le code de ce dépot n'est pas en phase avec les pages publiées. N'ayant plus la volonté de poursuivre le développement, je mets les sources à disposition après avoir adapté le projet pour le framework .NET6.
@@ -110,10 +110,10 @@ c = coefficiente (Japi1=57,5; Japi2=2250)
 
 ## Ressources utilisées
 
-[Bootstrap](https://getbootstrap.com/)
-[Open Iconic](https://useiconic.com/open)
-[SpinKit loading page](https://tobiasahlin.com/spinkit/) de Tobias Ahlin.
-[BlazorFileSaver](https://github.com/IvanJosipovic/BlazorFileSaver) de Ivan Josipovic.
+[Bootstrap](https://getbootstrap.com/)</br>
+[Open Iconic](https://useiconic.com/open)</br>
+[SpinKit loading page](https://tobiasahlin.com/spinkit/) de Tobias Ahlin.</br>
+[BlazorFileSaver](https://github.com/IvanJosipovic/BlazorFileSaver) de Ivan Josipovic.</br>
 [BlazorOnGithubPages](https://github.com/SteveSandersonMS/BlazorOnGitHubPages) de Steve Anderson.
 
 ## Notes de version
